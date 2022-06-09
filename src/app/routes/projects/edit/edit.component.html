@@ -1,0 +1,105 @@
+<page-header [action]="phActionTpl">
+  <ng-template #phActionTpl>
+    <a [routerLink]="['/projects/list']" nz-button nzType="primary">GoBack</a>
+  </ng-template>
+</page-header>
+<nz-card>
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>ProjectName</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="projectName" placeholder="ProjectName"/>
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">Please input your username!</ng-container>
+          <!--          <ng-container *ngIf="control.hasError('duplicated')">The username is redundant!</ng-container>-->
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>PMO</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback>
+        <nz-select formControlName="pmo"
+                   nzAllowClear
+                   nzPlaceHolder="Choose"
+                   [compareWith]="compareFn"
+        >
+          <nz-option *ngFor="let option of optionList"
+                     [nzValue]="option"
+                     [nzLabel]="option.label">
+
+          </nz-option>
+        </nz-select>
+
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Sponsor</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input your sponsor!">
+        <input nz-input formControlName="sponsor"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Technology</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input your technology!">
+        <input nz-input formControlName="technology"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Customer</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input your customer!">
+        <input nz-input formControlName="customer"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Application</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input your application!">
+        <input nz-input formControlName="application"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>KeyWords</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input your keyWords!">
+        <input nz-input formControlName="keyWords"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>FilePath</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input your filePath!">
+        <input nz-input formControlName="filePath"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>FilePath2</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input your filePath2!">
+        <nz-upload [nzFileList]="fileList" [nzBeforeUpload]="beforeUpload">
+          <button nz-button>
+            <i nz-icon nzType="upload"></i>
+            Select File
+          </button>
+        </nz-upload>
+        <button
+          nz-button
+          [nzType]="'primary'"
+          [nzLoading]="uploading"
+          (click)="handleUpload()"
+          [disabled]="fileList.length === 0"
+          style="margin-top: 16px"
+        >
+          {{ uploading ? 'Uploading' : 'Start Upload' }}
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+    <!--<nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Comment</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzErrorTip="Please write something here!">
+        <textarea formControlName="comment" nz-input rows="2" placeholder="write any thing"></textarea>
+      </nz-form-control>
+    </nz-form-item>-->
+    <nz-form-item>
+      <nz-form-control [nzOffset]="7" [nzSpan]="12">
+        <button nz-button nzType="primary" [disabled]="!validateForm.valid">Submit</button>
+        <button nz-button (click)="resetForm($event)">Reset</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>

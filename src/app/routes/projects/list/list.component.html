@@ -1,0 +1,100 @@
+<page-header [action]="phActionTpl">
+  <ng-template #phActionTpl>
+<!--    <button nz-button nzType="primary" >新建</button>-->
+    <a [routerLink]="['/projects/edit']" nz-button nzType="primary">新建</a>
+  </ng-template>
+</page-header>
+<nz-card>
+  <form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="8" *ngFor="let control of controlArray" [hidden]="!control.show">
+        <nz-form-item>
+          <nz-form-label [nzFor]="'field' + control.index">Field {{ control.index }}</nz-form-label>
+          <nz-form-control>
+            <input
+              nz-input
+              placeholder="placeholder"
+              [formControlName]="'field' + control.index"
+              [attr.id]="'field' + control.index"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+    <div nz-row>
+      <div nz-col [nzSpan]="24" class="search-area">
+        <button nz-button [nzType]="'primary'">Search</button>
+        <button nz-button (click)="resetForm()">Clear</button>
+        <a class="collapse" (click)="toggleCollapse()">
+          Collapse
+          <i nz-icon [nzType]="isCollapse ? 'down' : 'up'"></i>
+        </a>
+      </div>
+    </div>
+  </form>
+
+  <nz-table
+    nzShowSizeChanger
+    nzBordered
+    nzSize="middle"
+    [nzData]="listOfProjectInfo"
+    [nzFrontPagination]="false"
+    [nzLoading]="loading"
+    [nzTotal]="total"
+    [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex"
+    (nzQueryParams)="onQueryParamsChange($event)"
+  >
+    <thead>
+    <tr>
+      <th nzColumnKey="proId" [nzSortFn]="true">proId</th>
+      <th nzColumnKey="projectName">projectName</th>
+      <th nzColumnKey="pmo" [nzFilters]="filterPMO" [nzFilterFn]="true">pmo</th>
+      <th nzColumnKey="sponsor">sponsor</th>
+      <th nzColumnKey="application">application</th>
+      <th nzColumnKey="m0Status">m0Status</th>
+      <th nzColumnKey="t0Status">t0Status</th>
+      <th nzColumnKey="t1Status">t1Status</th>
+      <th nzColumnKey="t2Status">t2Status</th>
+      <th nzColumnKey="createTime">createTime</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of listOfProjectInfo">
+      <td>{{ data.proId }} </td>
+      <td>{{ data.projectName }} </td>
+      <td>{{ data.pmo }} </td>
+      <td>{{ data.sponsor }} </td>
+      <td>{{ data.application }}</td>
+      <td>
+        <nz-tag *ngIf="data.m0Status=='1'" [nzColor]="'magenta'">未开始</nz-tag>
+        <nz-tag *ngIf="data.m0Status=='2'" [nzColor]="'blue'">进行中</nz-tag>
+        <nz-tag *ngIf="data.m0Status=='3'" [nzColor]="'green'">已完成</nz-tag>
+
+      </td>
+      <td>
+        <nz-tag *ngIf="data.t0Status=='1'" [nzColor]="'magenta'">未开始</nz-tag>
+        <nz-tag *ngIf="data.t0Status=='2'" [nzColor]="'blue'">进行中</nz-tag>
+        <nz-tag *ngIf="data.t0Status=='3'" [nzColor]="'green'">已完成</nz-tag>
+      </td>
+      <td>
+        <nz-tag *ngIf="data.t1Status=='1'" [nzColor]="'magenta'">未开始</nz-tag>
+        <nz-tag *ngIf="data.t1Status=='2'" [nzColor]="'blue'">进行中</nz-tag>
+        <nz-tag *ngIf="data.t1Status=='3'" [nzColor]="'green'">已完成</nz-tag>
+      </td>
+      <td>
+        <nz-tag *ngIf="data.t2Status=='1'" [nzColor]="'magenta'">未开始</nz-tag>
+        <nz-tag *ngIf="data.t2Status=='2'" [nzColor]="'blue'">进行中</nz-tag>
+        <nz-tag *ngIf="data.t2Status=='3'" [nzColor]="'green'">已完成</nz-tag>
+      </td>
+      <td>{{ data.createTime }}</td>
+      <td>
+        <a [routerLink]="['/projects/edit']" [queryParams]="{id:data.proId}">edit</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a>Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
