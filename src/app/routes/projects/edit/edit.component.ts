@@ -18,7 +18,10 @@ export class ProjectsEditComponent implements OnInit {
 
   validateForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private msg: NzMessageService, public http: _HttpClient, public route: ActivatedRoute) {
+  constructor(private fb: FormBuilder,
+              private msg: NzMessageService,
+              public http: _HttpClient,
+              public route: ActivatedRoute) {
     this.validateForm = this.fb.group({
       proId: [''],
       projectName: ['', [Validators.required]],
@@ -37,13 +40,13 @@ export class ProjectsEditComponent implements OnInit {
     this.route.queryParams.subscribe((res: any) => {
       // console.log(res)
       /**
-       * 判断是否获取到路由id参数，如果有则 编辑信息，否则 添加信息；
+       * 判断是否获取到路由项目proid参数，如果有则 编辑信息，否则 添加信息；
        */
-      if (res.id) {
-        this.validateForm.patchValue({proId: res.id});
-        this.http.get(`http://localhost:8080/api/project/getProjectInfo/${res.id}`).subscribe((pres: any) => {
+      if (res.porId) {
+        this.validateForm.patchValue({proId: res.porId});
+        this.http.get(`http://localhost:8080/api/project/getProjectInfo/${res.porId}`).subscribe((pres: any) => {
           this.validateForm.patchValue({
-            proId: res.id,
+            proId: res.porId,
             projectName: pres.data.projectName,
             pmo: { label: pres.data.pmo, value: pres.data.pmo },
             sponsor: pres.data.sponsor,

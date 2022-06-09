@@ -5,33 +5,6 @@
   </ng-template>
 </page-header>
 <nz-card>
-  <form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
-    <div nz-row [nzGutter]="24">
-      <div nz-col [nzSpan]="8" *ngFor="let control of controlArray" [hidden]="!control.show">
-        <nz-form-item>
-          <nz-form-label [nzFor]="'field' + control.index">Field {{ control.index }}</nz-form-label>
-          <nz-form-control>
-            <input
-              nz-input
-              placeholder="placeholder"
-              [formControlName]="'field' + control.index"
-              [attr.id]="'field' + control.index"
-            />
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-    </div>
-    <div nz-row>
-      <div nz-col [nzSpan]="24" class="search-area">
-        <button nz-button [nzType]="'primary'">Search</button>
-        <button nz-button (click)="resetForm()">Clear</button>
-        <a class="collapse" (click)="toggleCollapse()">
-          Collapse
-          <i nz-icon [nzType]="isCollapse ? 'down' : 'up'"></i>
-        </a>
-      </div>
-    </div>
-  </form>
 
   <nz-table
     nzShowSizeChanger
@@ -90,9 +63,11 @@
       </td>
       <td>{{ data.createTime }}</td>
       <td>
-        <a [routerLink]="['/projects/edit']" [queryParams]="{id:data.proId}">edit</a>
+        <a [routerLink]="['/projects/edit']" [queryParams]="{proId:data.proId}">edit</a>
         <nz-divider nzType="vertical"></nz-divider>
         <a>Delete</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a [routerLink]="['/projects/detail']" [queryParams]="{proId:data.proId}">Details</a>
       </td>
     </tr>
     </tbody>
