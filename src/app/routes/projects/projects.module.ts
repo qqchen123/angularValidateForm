@@ -8,15 +8,15 @@ import {NzTagModule} from "ng-zorro-antd/tag";
 import {NzUploadModule} from "ng-zorro-antd/upload";
 import {ProjectsDetailComponent} from './detail/detail.component';
 import {ProjectsTabinfoComponent} from './detail/tabinfo/tabinfo.component';
-import { ProjectsProinfoComponent } from './detail/proinfo/proinfo.component';
+import {ProjectsProinfoComponent} from './detail/proinfo/proinfo.component';
 
 const COMPONENTS: Type<void>[] = [
   ProjectsEditComponent,
   ProjectsListComponent,
   ProjectsDetailComponent,
-  ProjectsTabinfoComponent
-,
-  ProjectsProinfoComponent];
+  ProjectsTabinfoComponent,
+  ProjectsProinfoComponent
+];
 
 @NgModule({
   imports: [

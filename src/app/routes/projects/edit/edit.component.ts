@@ -38,7 +38,6 @@ export class ProjectsEditComponent implements OnInit {
      * 接受路由参数
      */
     this.route.queryParams.subscribe((res: any) => {
-      // console.log(res)
       /**
        * 判断是否获取到路由项目proid参数，如果有则 编辑信息，否则 添加信息；
        */
@@ -59,16 +58,10 @@ export class ProjectsEditComponent implements OnInit {
         })
       }
     })
-
   }
 
   ngOnInit(): void {
-
-
   }
-
-  //-------------------------
-
   optionList = [
     { label: 'Y', value: 'Y' },
     { label: 'N', value: 'N' }
@@ -79,8 +72,6 @@ export class ProjectsEditComponent implements OnInit {
   log(value: { label: string; value: string; age: number }): void {
     console.log(value);
   }
-  //-------------------------
-
 
   beforeUpload = (file: NzUploadFile): boolean => {
     this.fileList = this.fileList.concat(file);

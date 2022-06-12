@@ -132,7 +132,7 @@ export class UserLoginComponent implements OnDestroy {
         this.reuseTabService.clear();
         // 设置用户Token信息
         // TODO: Mock expired value
-        res.user.expired = +new Date() + 1000 * 60 * 5;
+        res.user.expired = +new Date() + 10000 * 60 * 5;
         this.tokenService.set(res.user);
         // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
         this.startupSrv.load().subscribe(() => {
@@ -142,6 +142,7 @@ export class UserLoginComponent implements OnDestroy {
           }
           this.router.navigateByUrl(url);
         });
+        this.router.navigateByUrl("/projects/list");
       });
   }
 
