@@ -1,0 +1,26 @@
+<page-header [action]="phActionTpl">
+  <ng-template #phActionTpl>
+    <a [routerLink]="['/projects/list']" nz-button nzType="primary">GoBack</a>
+  </ng-template>
+</page-header>
+<nz-card>
+  <div nz-row>
+    <div nz-col nzSpan="24">
+      <nz-card>
+<!--        <div class="search-result-list">Search Result List</div>-->
+        <app-projects-proinfo [projectId]="projectId"></app-projects-proinfo>
+      </nz-card>
+    </div>
+  </div>
+  <div nz-row>
+    <div nz-col nzSpan="24">
+      <nz-card style="width: 100%;">
+        <nz-tabset>
+          <nz-tab [nzTitle]="item.cateName" *ngFor="let item of procedureCate;let i =index;">
+            <app-projects-tabinfo [projectId]="projectId" [cateId]="item.cateId"></app-projects-tabinfo>
+          </nz-tab>
+        </nz-tabset>
+      </nz-card>
+    </div>
+  </div>
+</nz-card>

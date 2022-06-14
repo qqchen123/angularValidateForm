@@ -1,0 +1,48 @@
+<page-header [action]="phActionTpl">
+  <ng-template #phActionTpl>
+    <!--    <button nz-button nzType="primary" >新建</button>-->
+    <a [routerLink]="['/cates/edit']" nz-button nzType="primary">新建</a>
+  </ng-template>
+</page-header>
+<nz-card>
+
+  <nz-table
+    nzShowSizeChanger
+    nzBordered
+    nzSize="middle"
+    [nzData]="listOfCatesInfo"
+    [nzFrontPagination]="false"
+    [nzLoading]="loading"
+    [nzTotal]="total"
+    [nzPageSize]="pageSize"
+    [nzPageIndex]="pageIndex"
+    (nzQueryParams)="onQueryParamsChange($event)"
+  >
+    <thead>
+    <tr>
+      <th nzColumnKey="cateId" [nzSortFn]="true">cateId</th>
+      <th nzColumnKey="cateName">cateName</th>
+      <th nzColumnKey="parentCate">parentCate</th>
+      <th nzColumnKey="tableInfo">tableInfo</th>
+      <th nzColumnKey="createTime">createTime</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of listOfCatesInfo">
+      <td>{{ data.cateId }} </td>
+      <td>{{ data.cateName }} </td>
+      <td>{{ data.parentCate }} </td>
+      <td>{{ data.tableInfo }}</td>
+      <td>{{ data.createTime }}</td>
+      <td>
+        <a [routerLink]="['/cates/edit']" [queryParams]="{cateId:data.cateId}">edit</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a>Delete</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a [routerLink]="['/cates/detail']" [queryParams]="{cateId:data.cateId}">Details</a>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

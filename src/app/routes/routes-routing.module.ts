@@ -29,7 +29,7 @@ const routes: Routes = [
       // { path: 'widgets', loadChildren: () => import('./widgets/widgets.module').then(m => m.WidgetsModule) },
       {path: 'myhome', loadChildren: () => import('./myhome/myhome.module').then(m => m.MyhomeModule)},
       {path: 'projects', loadChildren: () => import('./projects/projects.module').then((m) => m.ProjectsModule)}
-    ]
+    ,  { path: 'cates', loadChildren: () => import('./cates/cates.module').then((m) => m.CatesModule) }]
   },
   // 空白布局
   // {

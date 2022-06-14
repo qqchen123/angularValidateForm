@@ -1,19 +1,19 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProjectsListComponent } from './list.component';
+import { ProjectsTabinfoComponent } from './tabinfo.component';
 
-describe('ProjectsListComponent', () => {
-  let component: ProjectsListComponent;
-  let fixture: ComponentFixture<ProjectsListComponent>;
+describe('ProjectsTabinfoComponent', () => {
+  let component: ProjectsTabinfoComponent;
+  let fixture: ComponentFixture<ProjectsTabinfoComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProjectsListComponent ]
+      declarations: [ ProjectsTabinfoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectsListComponent);
+    fixture = TestBed.createComponent(ProjectsTabinfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

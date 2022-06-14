@@ -1,0 +1,117 @@
+<form nz-form [formGroup]="validateForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label >projectName</nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            placeholder="placeholder"
+            formControlName="projectName"
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label >pmo</nz-form-label>
+        <nz-form-control>
+          <nz-select formControlName="pmo"
+                     nzAllowClear
+                     nzPlaceHolder="Choose"
+                     [compareWith]="compareFn"
+          >
+            <nz-option *ngFor="let option of optionList"
+                       [nzValue]="option"
+                       [nzLabel]="option.label">
+
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label >sponsor</nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            placeholder="placeholder"
+            formControlName="sponsor"
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label >technology</nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            placeholder="placeholder"
+            formControlName="technology"
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label >customer</nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            placeholder="placeholder"
+            formControlName="customer"
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label >application</nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            placeholder="placeholder"
+            formControlName="application"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label >keyWords</nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            placeholder="placeholder"
+            formControlName="keyWords"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label >filePath</nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            placeholder="placeholder"
+            formControlName="filePath"
+          />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row>
+    <div nz-col [nzSpan]="24" class="search-area">
+      <button nz-button [nzType]="'primary'">Save</button>
+      <a nz-button nzType="primary" [routerLink]="['/projects/list']">GoBack</a>
+    </div>
+  </div>
+</form>
