@@ -47,7 +47,7 @@ export class ProjectsEditComponent implements OnInit {
           this.validateForm.patchValue({
             proId: res.porId,
             projectName: pres.data.projectName,
-            pmo: { label: pres.data.pmo, value: pres.data.pmo },
+            pmo: {label: pres.data.pmo, value: pres.data.pmo},
             sponsor: pres.data.sponsor,
             technology: pres.data.technology,
             customer: pres.data.customer,
@@ -62,9 +62,10 @@ export class ProjectsEditComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
   optionList = [
-    { label: 'Y', value: 'Y' },
-    { label: 'N', value: 'N' }
+    {label: 'Y', value: 'Y'},
+    {label: 'N', value: 'N'}
   ];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   compareFn = (o1: any, o2: any): boolean => (o1 && o2 ? o1.value === o2.value : o1 === o2);
@@ -80,12 +81,20 @@ export class ProjectsEditComponent implements OnInit {
 
   handleUpload(): void {
     const formData = new FormData();
+    let myfile: any;
     this.fileList.forEach((file: any) => {
-      formData.append('files[]', file);
+      myfile = file;
+      formData.append('file', file);
     });
     this.uploading = true;
+    this.http.post('http://localhost:8080/api/minio/upload', formData).subscribe((res: any) => {
+      this.uploading = false;
+      let fileInfo:NzUploadFile = {uid: myfile.uid, name: myfile.name, status: 'done', url: res.data};
 
-    this.validateForm.patchValue({filePath: "test123"})
+      this.fileList = [fileInfo];
+      console.log(this.fileList, '----------------')
+      this.msg.success('upload successfully11111.');
+    })
   }
 
   //---------------------------------------

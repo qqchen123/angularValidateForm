@@ -1,1 +1,10 @@
-<h1>123123edit</h1>
+<nz-upload
+  nzAction="http://localhost:8080/api/minio/upload"
+  [nzFileList]="fileList"
+  (nzChange)="handleChange($event)"
+>
+  <button nz-button>
+    <i nz-icon nzType="upload"></i>
+    Upload
+  </button>
+</nz-upload>
