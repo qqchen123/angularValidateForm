@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NzUploadFile} from "ng-zorro-antd/upload";
+import {NzUploadChangeParam, NzUploadFile} from "ng-zorro-antd/upload";
 import {HttpClient, HttpRequest, HttpResponse} from "@angular/common/http";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {filter} from "rxjs";
@@ -19,7 +19,26 @@ export class MyhomeListComponent implements OnInit {
   }
 
   beforeUpload = (file: NzUploadFile): boolean => {
-    this.fileList = this.fileList.concat(file);
+    // this.fileList = this.fileList.concat(file);
+
+    let fileList = [file];
+
+    // 1. Limit the number of uploaded files
+    // Only to show two recent uploaded files, and old ones will be replaced by the new
+    fileList = fileList.slice(-1);
+
+    // 2. Read from response and show file link
+    // fileList = fileList.map(file => {
+    //   if (file.response) {
+    //     // Component will show file.url as link
+    //     file.url = file.response.url;
+    //   }
+    //   return file;
+    // });
+
+    this.fileList = fileList;
+    console.log(this.fileList)
+
     return false;
   };
 

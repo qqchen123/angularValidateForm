@@ -38,16 +38,24 @@ export class ProjectsEditComponent implements OnInit {
      * 接受路由参数
      */
     this.route.queryParams.subscribe((res: any) => {
+      console.log(res)
       /**
        * 判断是否获取到路由项目proid参数，如果有则 编辑信息，否则 添加信息；
        */
-      if (res.porId) {
-        this.validateForm.patchValue({proId: res.porId});
-        this.http.get(`http://localhost:8080/api/project/getProjectInfo/${res.porId}`).subscribe((pres: any) => {
+      if (res.proId) {
+        this.validateForm.patchValue({proId: res.proId});
+        this.http.get(`http://localhost:8080/api/project/getProjectInfo/${res.proId}`).subscribe((pres: any) => {
+          console.log(pres)
+          let resFileData = pres.data.filePath.split('/');
+          let dUrl = 'http://localhost:8080/api/minio/downloadFile';
+          dUrl = dUrl + '?bucketName=' + resFileData[3] + '&filePath=/' + resFileData[4]+'/'+resFileData[5];
+          let fileInfo: NzUploadFile = {uid: '1', name: 'file', status: 'done', url: dUrl};
+          this.fileList = [fileInfo];
+
           this.validateForm.patchValue({
-            proId: res.porId,
+            proId: pres.data.proId,
             projectName: pres.data.projectName,
-            pmo: {label: pres.data.pmo, value: pres.data.pmo},
+            pmo: pres.data.pmo,
             sponsor: pres.data.sponsor,
             technology: pres.data.technology,
             customer: pres.data.customer,
@@ -55,6 +63,7 @@ export class ProjectsEditComponent implements OnInit {
             keyWords: pres.data.keyWords,
             filePath: pres.data.filePath,
           });
+          console.log(this.validateForm.value)
         })
       }
     })
@@ -67,15 +76,13 @@ export class ProjectsEditComponent implements OnInit {
     {label: 'Y', value: 'Y'},
     {label: 'N', value: 'N'}
   ];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  compareFn = (o1: any, o2: any): boolean => (o1 && o2 ? o1.value === o2.value : o1 === o2);
 
-  log(value: { label: string; value: string; age: number }): void {
-    console.log(value);
-  }
 
   beforeUpload = (file: NzUploadFile): boolean => {
-    this.fileList = this.fileList.concat(file);
+    let fileList = [file];
+    fileList = fileList.slice(-1);
+    this.fileList = fileList;
+    console.log(this.fileList)
     return false;
   };
 
@@ -91,8 +98,9 @@ export class ProjectsEditComponent implements OnInit {
       this.uploading = false;
       let fileInfo:NzUploadFile = {uid: myfile.uid, name: myfile.name, status: 'done', url: res.data};
 
+      this.validateForm.patchValue({filePath:res.data});
       this.fileList = [fileInfo];
-      console.log(this.fileList, '----------------')
+      // console.log(this.fileList, '----------------')
       this.msg.success('upload successfully11111.');
     })
   }
@@ -100,9 +108,9 @@ export class ProjectsEditComponent implements OnInit {
   //---------------------------------------
 
   submitForm(): void {
-    // this.http.post("http://localhost:8080/api/project/insertPro",this.validateForm.value).subscribe(res=>{
-    //   console.log(res)
-    // })
+    this.http.post("http://localhost:8080/api/project/insertPro",this.validateForm.value).subscribe(res=>{
+      console.log(res)
+    })
     console.log(this.validateForm.value)
 
   }
@@ -119,4 +127,9 @@ export class ProjectsEditComponent implements OnInit {
   }
 
 
+  fileChange=(file: NzUploadFile):boolean => {
+    //删除最后一个元素
+    this.fileList = this.fileList.slice(0,-1);
+    return true;
+  }
 }
